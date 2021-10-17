@@ -8,6 +8,9 @@ https://lunzaizai0223.github.io/MyLibrary/
 - Form Validation：https://www.youtube.com/watch?v=rsd4FNGTRBw
 - Pupup Modal：https://www.youtube.com/watch?v=MBaw_6cPmAw&t=907s
 
+
+感謝大神們的分享。
+
 ## 時程
 - 2021/10/14 開始專案
 - 2021/10/17 完成 version 1
