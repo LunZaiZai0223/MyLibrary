@@ -6,7 +6,7 @@ https://lunzaizai0223.github.io/MyLibrary/
 
 - 功能及外觀參考大神的作品：https://sultanbadri.github.io/virtual-library/
 - Form Validation：https://www.youtube.com/watch?v=rsd4FNGTRBw
-- Pupup Modal：https://www.youtube.com/watch?v=MBaw_6cPmAw&t=907s
+- Popup Modal：https://www.youtube.com/watch?v=MBaw_6cPmAw&t=907s
 
 
 感謝大神們的分享。
@@ -16,7 +16,7 @@ https://lunzaizai0223.github.io/MyLibrary/
 - 2021/10/17 完成 version 1
   - Layout（含 RWD）
   - Form Validation
-  - Pupup
+  - Popup
 
 ## 預計實作
 1. localStorage
