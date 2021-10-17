@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="./app.css">
+		<title>My Library</title>
+	</head>
+	<body>
+		<div id="overlay"></div>
+		<header>
+			<h2>我的圖書館</h2>
+		</header>
+		<div class="books-container">
+			<!-- <div class="card" data-index="${indexNum}">
+				<h2 class="title">${value.title}</h2>
+				<h3>作者：${value.author}</h3>
+				<h3>頁數：${value.pages}</h3>
+				<h3>${value.haveRead}</h3>
+				<span class="add-date">加入時間：</span>
+				<div class="btn-group">
+					<button class="edit-btn far fa-edit"></button>
+					<button class="delete-btn far fa-trash-alt"></button>
+				</div>
+			</div>
+			<div class="card" data-index="${indexNum}">
+				<h2 class="title">${value.title}</h2>
+				<h3>作者：${value.author}</h3>
+				<h3>頁數：${value.pages}</h3>
+				<h3>${value.haveRead}</h3>
+				<span class="add-date">加入時間：</span>
+				<div class="btn-group">
+					<button class="edit-btn far fa-edit"></button>
+					<button class="delete-btn far fa-trash-alt"></button>
+				</div>
+			</div>
+			<div class="card" data-index="${indexNum}">
+				<h2 class="title">${value.title}</h2>
+				<h3>作者：${value.author}</h3>
+				<h3>頁數：${value.pages}</h3>
+				<h3>${value.haveRead}</h3>
+				<span class="add-date">加入時間：</span>
+				<div class="btn-group">
+					<button class="edit-btn far fa-edit"></button>
+					<button class="delete-btn far fa-trash-alt"></button>
+				</div>
+			</div>
+			<div class="card" data-index="${indexNum}">
+				<h2 class="title">${value.title}</h2>
+				<h3>作者：${value.author}</h3>
+				<h3>頁數：${value.pages}</h3>
+				<h3>${value.haveRead}</h3>
+				<span class="add-date">加入時間：</span>
+				<div class="btn-group">
+					<button class="edit-btn far fa-edit"></button>
+					<button class="delete-btn far fa-trash-alt"></button>
+				</div>
+			</div> -->
+		</div>
+		<form class="add-form" method="GET">
+			<div class="close-add-form-btn">&times;</div>
+			<h2>新增一本書</h2>
+			<div class="form-control">
+				<label for="book-title">書名：</label><input type="text" id="book-title" name="book[title]">
+			</div>
+			<div class="form-control">
+				<label for="book-author">作者：</label><input type="text" id="book-author" name="book[author]">
+			</div>
+			<div class="form-control">
+				<label for="book-pages">頁數：</label><input type="number" id="book-pages" name="book[pages]">
+			</div>
+			<div class="form-control">
+				<label for="book-add-date">加入圖書館的時間：</label><input type="date" id="book-add-date">
+			</div>
+			<div class="form-control">
+				<label for="book-haveRead">讀過了嗎？</label>
+				<select name="book[haveRead]" id="book-haveRead">
+					<option selected disabled value="false">請選擇一個標籤</option>
+					<option value="true">YES😃</option>
+					<option value="false">NO😢</option>
+				</select>
+			</div>
+			<input type="submit" value="新增">
+		</form>
+		<button id="modal-btn">&times;</button>
+		<script src="https://kit.fontawesome.com/f7fe694de6.js" crossorigin="anonymous"></script>
+		<script src="./app.js"></script>
+	</body>
+</html>

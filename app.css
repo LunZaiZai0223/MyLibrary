@@ -1,0 +1,187 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #74c69d;
+}
+body header {
+  background-color: #007f5f;
+  min-height: 8vh;
+  margin-bottom: 2rem;
+}
+body header h2 {
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  padding: 1rem 0 1rem 2rem;
+  color: #fff;
+}
+
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 15px;
+  justify-content: start;
+}
+@media (max-width: 768px) {
+  .books-container {
+    padding: 0 1rem;
+    gap: 20px;
+  }
+}
+.books-container .card {
+  width: calc(100% / 3 - 10px);
+}
+@media (max-width: 768px) {
+  .books-container .card {
+    width: calc(100% / 2 - 10px);
+  }
+}
+@media (max-width: 550px) {
+  .books-container .card {
+    flex: 1 1 100%;
+    margin: 0 1rem;
+  }
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 0.25rem;
+}
+.card h3 {
+  margin: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+}
+.card .title {
+  background-color: #007f5f;
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+  color: #fff;
+  margin: 0;
+  padding: 1rem 0;
+}
+.card .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.card .btn-group button {
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1rem;
+  flex: 1;
+  color: #fff;
+}
+.card .btn-group .edit-btn {
+  background-color: #f9c74f;
+}
+.card .btn-group .delete-btn {
+  background-color: #f94144;
+}
+
+.add-form {
+  min-width: 350px;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease-in;
+  z-index: 999;
+}
+.add-form .close-add-form-btn {
+  position: absolute;
+  top: -0.25rem;
+  right: 0.5rem;
+  color: red;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.add-form h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+.add-form label {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+.add-form input, .add-form select {
+  background-color: #f7f7f7;
+  border-radius: 0.25rem;
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  outline: 0;
+}
+.add-form input[type=submit] {
+  background-color: #007f5f;
+  color: #fff;
+  margin-top: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-form.is-active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#overlay.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#modal-btn {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border: none;
+  border-radius: 50%;
+  background-color: #007f5f;
+  color: #fff;
+  font-size: 1.5rem;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+#modal-btn.is-active {
+  transform: rotate(0deg);
+}
+
+.add-form.has-validation .form-control.valid-feedback input {
+  border: 1px solid #2ecc71;
+}
+.add-form.has-validation .form-control.invalid-feedback input {
+  border: 1px solid #e74c3c;
+}
+.add-form.has-validation .form-control.invalid-feedback small {
+  color: #e74c3c;
+  font-size: 0.5rem;
+}
+
+/*# sourceMappingURL=app.css.map */
