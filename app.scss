@@ -9,12 +9,32 @@ body {
 	background-color: #007f5f;
 	min-height: 8vh;
 	margin-bottom: 2rem;
+	display: flex;
+	align-items: center;
     }
     header h2 {
     	font-size: 1.6rem;
     	letter-spacing: 2px;
     	padding: 1rem 0 1rem 2rem;
     	color: #fff;
+    }
+    .filter-haveRead-form {
+    	display: flex;
+    	align-items: center;
+    	h2 {
+    		font-size: 1rem;
+    		padding: 0;
+    		margin-left: 2rem;
+    	}
+    	.filter-radio-container {
+    		margin-left: .5rem;
+    		label {
+    			font-size: 1rem;
+    			color: #fff;
+    			font-weight: 300;
+    		}
+    	}
+
     }
 }
 @mixin pad {
