@@ -8,9 +8,12 @@ const bookHaveRead = document.getElementById('book-haveRead');
 const openModalBtn = document.querySelector('#modal-btn');
 const closeModalBtn = document.querySelector('.close-add-form-btn');
 const overlay = document.querySelector('#overlay');
+const filterHaveReadRadioBtns = document.querySelectorAll('input[type="radio"][name="filter-haveRead"]');
+let filterHaveReadArr;
+let filterHaveReadRadioValue;
 
 
-const myLibrary = [];
+const myLibrary = JSON.parse(localStorage.getItem('books')) || [];
 // const myLibrary = [{}];
 
 // 渲染頁面
@@ -27,11 +30,15 @@ function render () {
       // </div>
   const booksContainerDiv = document.querySelector('.books-container');
   const cardDivs = document.getElementsByClassName('card');
+  // const booksInLocalStorage = JSON.parse(localStorage.getItem('books'));
+  // console.log(booksInLocalStorage);
   console.log(cardDivs);
   let str = '';
+  // if (!booksInLocalStorage) return;
   myLibrary.forEach((value, indexNum) => {
+    value.id = indexNum;
     str += `
-      <div class="card" data-index="${indexNum}">
+      <div class="card" data-index="${value.id}">
         <h2 class="title">${value.title}</h2>
         <h3>作者：${value.author}</h3>
         <h3>頁數：${value.pages}</h3>
@@ -46,8 +53,14 @@ function render () {
   });
   booksContainerDiv.innerHTML = str;
   for (let card of cardDivs) {
-    card.addEventListener('click', changeHaveReadStatus);
-    card.addEventListener('click', deleteBook);
+    // card.addEventListener('click', changeHaveReadStatus);
+    // card.addEventListener('click', deleteBook);
+    card.addEventListener('click', (event) => {
+      const isEditBtn = event.target.className.includes('edit-btn');
+      const isDeleteBtn = event.target.className.includes('delete-btn');
+      if (isEditBtn) { changeHaveReadStatus(event, null); }
+      if (isDeleteBtn) { deleteBook (event, null); }
+    });
   }
   // booksContainerDiv.addEventListener('click', changeHaveReadStatus);
   // if (btnGroupDiv.length > 0) {
@@ -58,7 +71,8 @@ function render () {
 }
 
 
-function Book (title, author, addDate, pages, haveRead) {
+function Book (id, title, author, addDate, pages, haveRead) {
+  this.id = id;
   this.title = title;
   this.author = author;
   this.addDate = addDate;
@@ -90,13 +104,15 @@ function addBookToLibrary () {
   console.log(bookTitleValue, bookAuthorValue, bookPagesValue, bookAddDateValue, bookHaveReadValue);
   if (formValidation(bookTitleValue, bookAuthorValue, bookPagesValue, bookAddDateValue, bookHaveReadValue)) {
     console.log('All Ok');
-    const book = new Book(bookTitleValue, bookAuthorValue, addDate, bookPagesValue, bookHaveReadValue);
+    const book = new Book(myLibrary.length, bookTitleValue, bookAuthorValue, addDate, bookPagesValue, bookHaveReadValue);
     console.log(book);
     // 把值取出來
-    const {title, author, pages, haveRead} = book;
+    const {id, title, author, pages, haveRead} = book;
     // 再用{}把全部包起來
-    myLibrary.push({title, author, addDate, pages, haveRead});
+    myLibrary.push({id, title, author, addDate, pages, haveRead});
     console.log(myLibrary);
+    // 新增資料到 localStorage
+    localStorage.setItem('books', JSON.stringify(myLibrary));
     removeFormValidationClasses();
     addForm.reset();
     render();
@@ -107,30 +123,87 @@ function addBookToLibrary () {
 
   // const book = new Book(bookTitle, bookAuthor, addDate, bookPages, bookHaveRead);
 }
-function changeHaveReadStatus (event) {
-  const isEditBtn = event.target.className.includes('edit-btn');
-  const indexNum = this.dataset.index;
-  if (isEditBtn) {
-    if (myLibrary[indexNum].haveRead === '讀了😃') {
-      myLibrary[indexNum].haveRead = '還沒讀😢';
-    } else {
-      myLibrary[indexNum].haveRead = '讀了😃';
-    }
-  }
+function changeHaveReadStatus (event, value) {
+  // console.log(event.target);
+  // const isEditBtn = event.target.className.includes('edit-btn');
+  // console.log(isEditBtn);
+
+  // 冒泡找到實際綁定事件的元素
+  const ele = event.currentTarget;
+  const bookId = ele.dataset.index;
+  console.log(bookId);
+  // console.log(bookId);
+  // // if (isEditBtn) {
+    myLibrary.forEach(value => {
+      console.log(value);
+      // 一開始建立的資料是 number
+      if (value.id === parseInt(bookId)) {
+        if (value.haveRead === '讀了😃') {
+          value.haveRead = '還沒讀😢';
+        } else {
+          value.haveRead = '讀了😃';
+        }
+      }
+    });
+    // if (myLibrary[indexNum].haveRead === '讀了😃') {
+    //   myLibrary[indexNum].haveRead = '還沒讀😢';
+    // } else {
+    //   myLibrary[indexNum].haveRead = '讀了😃';
+    // }
+  // }
+  // 更改 localStorage 中的資料
+  localStorage.setItem('books', JSON.stringify(myLibrary));
   // console.log(event.target);
   // console.log(this.dataset.index);
-  render();
-}
-function deleteBook (event) {
-  const isDeleteBtn = event.target.className.includes('delete-btn');
-  console.log(isDeleteBtn);
-  const indexNum = this.dataset.index;
-  console.log(indexNum);
-  if (isDeleteBtn) {
-    myLibrary.splice(indexNum, 1);
+  if (value) {
+    // 只丟符合的資料
+    const sortedArr = value.filter(arr => arr.haveRead === filterHaveReadRadioValue);
+    filterRender(sortedArr);
+  } else {
+    render();
   }
+} 
+function deleteBook (event, value) {
+  // const isDeleteBtn = event.target.className.includes('delete-btn');
+  // console.log(isDeleteBtn);
+  // const indexNum = this.dataset.index;
+
+  // 冒泡找到實際綁定事件的元素
+  const ele = event.currentTarget;
+  const bookId = ele.dataset.index;
+  console.log(bookId);
+  // console.log(indexNum);
+  // if (isDeleteBtn) {
+  myLibrary.forEach(value => {
+    if (value.id === parseInt(bookId)) {
+      const indexNum = myLibrary.indexOf(value);
+      console.log(indexNum);
+      myLibrary.splice(indexNum, 1);
+      console.log(myLibrary);
+    }
+  });
+    // myLibrary.splice(indexNum, 1);
+  // }
+  // 更改 localStorage 中的資料
+  localStorage.setItem('books', JSON.stringify(myLibrary));
   console.log(myLibrary);
-  render();
+  if (value) {
+    console.log(bookId);
+    // const sortedArr = value.filter(arr => arr.haveRead === filterHaveReadRadioValue);
+    // console.log(sortedArr);
+    value.forEach(arr => {
+      if (arr.id === parseInt(bookId)) {
+        console.log(arr);
+        const indexNum = value.indexOf(arr);
+        console.log(indexNum);
+        value.splice(indexNum, 1);
+      }
+    });
+    console.log(value);
+    filterRender(value);
+  } else {
+    render();
+  }
 }
 function formValidation (bookTitleValue, bookAuthorValue, bookPagesValue, bookAddDateValue, bookHaveReadValue) {
   addForm.classList.add('has-validation');
@@ -206,6 +279,61 @@ function setInvalidFeedback (input, errorMessage) {
   formControll.append(errorEle);
   }
 }
+function fillterByHaveReadOrNot () {
+  // const isTargetIncludeInputEle = event.target.nodeName.includes('INPUT');
+  // if (isTargetIncludeInputEle) {
+  //   console.log(event.target.value);
+  // }
+  const filterValue = this.value;
+  console.log(filterValue);
+  if (filterValue === 'all') {
+    return render();
+  }
+  filterHaveReadRadioValue = filterValue;
+  const filter = myLibrary.filter(value => value.haveRead === filterValue);
+  filterHaveReadArr = filter;
+  console.log(filter);
+  filterRender(filter);
+}
+function filterRender (filterValue) {
+  console.log(filterValue);
+  const booksContainerDiv = document.querySelector('.books-container');
+  const cardDivs = document.getElementsByClassName('card');
+  let str = '';
+  filterValue.forEach((value) => {
+    str += `
+      <div class="card" data-index="${value.id}">
+        <h2 class="title">${value.title}</h2>
+        <h3>作者：${value.author}</h3>
+        <h3>頁數：${value.pages}</h3>
+        <h3>${value.haveRead}</h3>
+        <span class="add-date">加入時間：${value.addDate.year}/${value.addDate.month}</span>
+        <div class="btn-group">
+          <button class="edit-btn far fa-edit"></button>
+          <button class="delete-btn far fa-trash-alt"></button>
+        </div>
+      </div>
+    `;
+  });
+  booksContainerDiv.innerHTML = str;
+  for (let card of cardDivs) {
+    // card.addEventListener('click', changeHaveReadStatus);
+    // card.addEventListener('click', deleteBook);
+    card.addEventListener('click', (event) => {
+      const isEditBtn = event.target.className.includes('edit-btn');
+      const isDeleteBtn = event.target.className.includes('delete-btn');
+      if (isEditBtn) {
+        changeHaveReadStatus(event, filterHaveReadArr);
+      }
+      if (isDeleteBtn) {
+        deleteBook(event, filterHaveReadArr);
+      }
+    })
+  }
+}
+// function filterChangeHaveReadStatus (event) {
+  
+// }
 
 addForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -215,5 +343,8 @@ addForm.addEventListener('submit', (event) => {
 openModalBtn.addEventListener('click', openPopupAddForm);
 closeModalBtn.addEventListener('click', closePopupAddForm);
 overlay.addEventListener('click', closePopupAddForm);
+for (radioBtn of filterHaveReadRadioBtns) {
+  radioBtn.addEventListener('change', fillterByHaveReadOrNot);
+}
 
 render();
