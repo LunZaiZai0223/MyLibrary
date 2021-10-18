@@ -11,12 +11,31 @@ body header {
   background-color: #007f5f;
   min-height: 8vh;
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
 }
 body header h2 {
   font-size: 1.6rem;
   letter-spacing: 2px;
   padding: 1rem 0 1rem 2rem;
   color: #fff;
+}
+body .filter-haveRead-form {
+  display: flex;
+  align-items: center;
+}
+body .filter-haveRead-form h2 {
+  font-size: 1rem;
+  padding: 0;
+  margin-left: 2rem;
+}
+body .filter-haveRead-form .filter-radio-container {
+  margin-left: 0.5rem;
+}
+body .filter-haveRead-form .filter-radio-container label {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 300;
 }
 
 .books-container {
