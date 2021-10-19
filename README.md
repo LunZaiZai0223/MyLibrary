@@ -17,8 +17,10 @@ https://lunzaizai0223.github.io/MyLibrary/
   - Layout（含 RWD）
   - Form Validation
   - Popup
-
+- 2021/10/18 完成 version 2
+  - localStorage
+  - 篩選：看了 還是 還沒
 ## 預計實作
-1. localStorage
-2. 篩選（依照加入的月份、年份以及看了與否）
+1. localStorage (done, v2)
+2. 篩選（依照加入的月份、年份以及看了與否）(half-done, v2)
 3. 代碼整理
