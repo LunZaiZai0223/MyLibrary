@@ -14,55 +14,71 @@
 				<h2><i class="fas fa-sort"></i> 篩選條件</h2>
 				<div class="filter-radio-container">
 					<input type="radio" id="filter-haveRead-true" name="filter-haveRead" value="讀了😃"><label for="filter-haveRead-true">讀了😃</label>
+					<br>
 					<input type="radio" id="filter-haveRead-false" name="filter-haveRead" value="還沒讀😢"><label for="filter-haveRead-false">還沒讀😢</label>
+					<br>
 					<input type="radio" id="filter-haveRead-all" name="filter-haveRead" value="all"><label for="filter-haveRead-all">全部</label>
 				</div>
 			</div>
+			<div class="counter-box">
+				<h3>館藏統計（<span id="counter-total-books-num">0</span>本）</h3>
+				<p><span class="has-read">&bull;</span>已讀：<span id="counter-has-read-books-num">0</span> 本</p>
+				<p><span class="has-not-read">&bull;</span>未讀：<span id="counter-has-not-read-books-num">0</span> 本</p>
+			</div>
 		</header>
+		<div class="welcome-guide">
+			<div class="heading">
+				<h1>圖書館空空如也</h1>
+				<!-- <div>&times;</div> -->
+			</div>
+			<div class="content">
+				<p>快新增書籍📚吧！</p>
+			</div>
+		</div>
 		<div class="books-container">
 			<!-- <div class="card" data-index="${indexNum}">
-					<h2 class="title">${value.title}</h2>
-					<h3>作者：${value.author}</h3>
-					<h3>頁數：${value.pages}</h3>
-					<h3>${value.haveRead}</h3>
-					<span class="add-date">加入時間：</span>
-					<div class="btn-group">
-							<button class="edit-btn far fa-edit"></button>
-							<button class="delete-btn far fa-trash-alt"></button>
-					</div>
+								<h2 class="title">${value.title}</h2>
+								<h3>作者：${value.author}</h3>
+								<h3>頁數：${value.pages}</h3>
+								<h3>${value.haveRead}</h3>
+								<span class="add-date">加入時間：</span>
+								<div class="btn-group">
+													<button class="edit-btn far fa-edit"></button>
+													<button class="delete-btn far fa-trash-alt"></button>
+								</div>
 			</div>
 			<div class="card" data-index="${indexNum}">
-					<h2 class="title">${value.title}</h2>
-					<h3>作者：${value.author}</h3>
-					<h3>頁數：${value.pages}</h3>
-					<h3>${value.haveRead}</h3>
-					<span class="add-date">加入時間：</span>
-					<div class="btn-group">
-							<button class="edit-btn far fa-edit"></button>
-							<button class="delete-btn far fa-trash-alt"></button>
-					</div>
+								<h2 class="title">${value.title}</h2>
+								<h3>作者：${value.author}</h3>
+								<h3>頁數：${value.pages}</h3>
+								<h3>${value.haveRead}</h3>
+								<span class="add-date">加入時間：</span>
+								<div class="btn-group">
+													<button class="edit-btn far fa-edit"></button>
+													<button class="delete-btn far fa-trash-alt"></button>
+								</div>
 			</div>
 			<div class="card" data-index="${indexNum}">
-					<h2 class="title">${value.title}</h2>
-					<h3>作者：${value.author}</h3>
-					<h3>頁數：${value.pages}</h3>
-					<h3>${value.haveRead}</h3>
-					<span class="add-date">加入時間：</span>
-					<div class="btn-group">
-							<button class="edit-btn far fa-edit"></button>
-							<button class="delete-btn far fa-trash-alt"></button>
-					</div>
+								<h2 class="title">${value.title}</h2>
+								<h3>作者：${value.author}</h3>
+								<h3>頁數：${value.pages}</h3>
+								<h3>${value.haveRead}</h3>
+								<span class="add-date">加入時間：</span>
+								<div class="btn-group">
+													<button class="edit-btn far fa-edit"></button>
+													<button class="delete-btn far fa-trash-alt"></button>
+								</div>
 			</div>
 			<div class="card" data-index="${indexNum}">
-					<h2 class="title">${value.title}</h2>
-					<h3>作者：${value.author}</h3>
-					<h3>頁數：${value.pages}</h3>
-					<h3>${value.haveRead}</h3>
-					<span class="add-date">加入時間：</span>
-					<div class="btn-group">
-							<button class="edit-btn far fa-edit"></button>
-							<button class="delete-btn far fa-trash-alt"></button>
-					</div>
+								<h2 class="title">${value.title}</h2>
+								<h3>作者：${value.author}</h3>
+								<h3>頁數：${value.pages}</h3>
+								<h3>${value.haveRead}</h3>
+								<span class="add-date">加入時間：</span>
+								<div class="btn-group">
+													<button class="edit-btn far fa-edit"></button>
+													<button class="delete-btn far fa-trash-alt"></button>
+								</div>
 			</div> -->
 		</div>
 		<form class="add-form" method="GET">

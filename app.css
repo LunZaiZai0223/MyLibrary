@@ -14,6 +14,11 @@ body header {
   display: flex;
   align-items: center;
 }
+@media (max-width: 550px) {
+  body header {
+    flex-wrap: wrap;
+  }
+}
 body header h2 {
   font-size: 1.6rem;
   letter-spacing: 2px;
@@ -32,10 +37,37 @@ body .filter-haveRead-form h2 {
 body .filter-haveRead-form .filter-radio-container {
   margin-left: 0.5rem;
 }
+@media (max-width: 550px) {
+  body .filter-haveRead-form .filter-radio-container {
+    padding: 0.5rem;
+  }
+}
 body .filter-haveRead-form .filter-radio-container label {
   font-size: 1rem;
   color: #fff;
   font-weight: 300;
+}
+body .counter-box {
+  margin: 0.5rem 0.5rem 0.5rem auto;
+  border: 1px solid #fff;
+  padding: 1rem 4rem;
+  color: #fff;
+}
+body .counter-box .has-read {
+  color: #118ab2;
+}
+body .counter-box .has-not-read {
+  color: #ef476f;
+}
+@media (max-width: 550px) {
+  body .counter-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 1rem;
+  }
 }
 
 .books-container {
@@ -103,6 +135,14 @@ body .filter-haveRead-form .filter-radio-container label {
 }
 .card .btn-group .delete-btn {
   background-color: #f94144;
+}
+
+.card.has-not-read .title {
+  background-color: #ef476f;
+}
+
+.card.has-read .title {
+  background-color: #118ab2;
 }
 
 .add-form {
@@ -186,6 +226,7 @@ body .filter-haveRead-form .filter-radio-container label {
   font-size: 1.5rem;
   transform: rotate(45deg);
   transition: transform 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 #modal-btn.is-active {
@@ -201,6 +242,29 @@ body .filter-haveRead-form .filter-radio-container label {
 .add-form.has-validation .form-control.invalid-feedback small {
   color: #e74c3c;
   font-size: 0.5rem;
+}
+
+.welcome-guide {
+  min-width: 320px;
+  max-width: 50%;
+  margin: 5rem auto;
+  text-align: center;
+  border-radius: 0.25rem;
+}
+.welcome-guide .heading {
+  background-color: #118ab2;
+  padding: 1rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: #fff;
+}
+.welcome-guide .content {
+  background-color: #fff;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 2rem 0;
 }
 
 /*# sourceMappingURL=app.css.map */

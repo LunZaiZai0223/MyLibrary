@@ -3,6 +3,18 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+@mixin pad {
+	@media(max-width: 768px) {
+		@content;
+	}
+}
+@mixin mobile {
+	@media(max-width: 550px) {
+		@content;
+	}
+}
+
 body {
 	background-color: #74c69d;
 	header {
@@ -11,6 +23,9 @@ body {
 	margin-bottom: 2rem;
 	display: flex;
 	align-items: center;
+	@include mobile {
+		flex-wrap: wrap;
+	  }
     }
     header h2 {
     	font-size: 1.6rem;
@@ -28,24 +43,36 @@ body {
     	}
     	.filter-radio-container {
     		margin-left: .5rem;
+    		@include mobile {
+    			padding: .5rem;
+    		}
     		label {
     			font-size: 1rem;
     			color: #fff;
     			font-weight: 300;
     		}
     	}
-
     }
-}
-@mixin pad {
-	@media(max-width: 768px) {
-		@content;
-	}
-}
-@mixin mobile {
-	@media(max-width: 550px) {
-		@content;
-	}
+    .counter-box {
+    	margin: .5rem .5rem .5rem auto;
+    	border: 1px solid #fff;
+    	padding: 1rem 4rem;
+    	color: #fff;
+    	.has-read {
+          color: #118ab2;
+          }
+        .has-not-read {
+          color: #ef476f;
+          }
+          @include mobile {
+          	display: flex;
+          	justify-content: center;
+          	align-items: center;
+          	width: 100%;
+          	padding: .5rem;
+          	margin: 1rem;
+          }
+    }
 }
 
 .books-container {
@@ -107,6 +134,16 @@ body {
 		.delete-btn {
 			background-color: #f94144;
 		}
+	}
+}
+.card.has-not-read {
+	.title {
+		background-color: #ef476f;
+	}
+}
+.card.has-read {
+	.title {
+		background-color: #118ab2;
 	}
 }
 
@@ -198,6 +235,7 @@ body {
 	font-size: 1.5rem;
 	transform: rotate(45deg);
 	transition: transform .3s ease-in-out;
+	cursor: pointer;
 }
 #modal-btn.is-active {
 	transform: rotate(0deg);
@@ -222,4 +260,30 @@ body {
 		}
 	}
 }
-
+.welcome-guide {
+	min-width: 320px;
+	max-width: 50%;
+	margin: 5rem auto;
+	text-align: center;
+	border-radius: .25rem;
+	// border: 1px solid black;
+	// // position: fixed;
+	// top: 50%;
+	// left: 50%;
+	// transform: translate(-50%, -50%);
+	.heading {
+		background-color: #118ab2;
+		padding: 1rem;
+		border-top-left-radius: .25rem;
+		border-top-right-radius: .25rem;
+		color: #fff;
+	}
+	.content {
+		background-color: #fff;
+		border-bottom-left-radius: .25rem;
+		border-bottom-right-radius: .25rem;
+		font-size: 1.5rem;
+		font-weight: 500;
+		padding: 2rem 0;
+	}
+}
