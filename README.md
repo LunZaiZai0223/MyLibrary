@@ -20,6 +20,9 @@ https://lunzaizai0223.github.io/MyLibrary/
 - 2021/10/18 完成 version 2
   - localStorage
   - 篩選：看了 還是 還沒
+- 2021/10/19 完成 version 3
+  - 館藏統計
+  - 已讀 / 未讀書本卡片變色
 ## 預計實作
 1. localStorage (done, v2)
 2. 篩選（依照加入的月份、年份以及看了與否）(half-done, v2)
