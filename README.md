@@ -1,6 +1,7 @@
 # MyLibrary
 ## 專案網址及預覽
 https://lunzaizai0223.github.io/MyLibrary/
+<img width="1275" alt="螢幕快照 2021-10-22 12 31 23" src="https://user-images.githubusercontent.com/77038018/138393832-49233bad-5004-49cf-813c-28303885795a.png">
 ## 專案介紹
 此專案是課程 THE ODIN PROJECT 中的 [PROJECT: LIBRARY](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/library)，讓我可以記錄哪些書我看過了，哪些書我想看。
 
