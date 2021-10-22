@@ -23,7 +23,9 @@ https://lunzaizai0223.github.io/MyLibrary/
 - 2021/10/19 完成 version 3
   - 館藏統計
   - 已讀 / 未讀書本卡片變色
+- 2021/10/22 完成 version 3.1
+  - 代碼整理
 ## 預計實作
 1. localStorage (done, v2)
 2. 篩選（依照加入的月份、年份以及看了與否）(half-done, v2)
-3. 代碼整理
+3. 代碼整理（done, v3.1）
