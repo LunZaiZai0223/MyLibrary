@@ -1,5 +1,4 @@
 const addForm = document.querySelector('.add-form');
-const btnGroupDiv = document.getElementsByClassName('btn-group');
 const bookTitle = document.querySelector('#book-title');
 const bookAuthor = document.querySelector('#book-author');
 const bookPages = document.querySelector('#book-pages');
@@ -9,11 +8,6 @@ const openModalBtn = document.querySelector('#modal-btn');
 const closeModalBtn = document.querySelector('.close-add-form-btn');
 const overlay = document.querySelector('#overlay');
 const filterHaveReadRadioBtns = document.querySelectorAll('input[type="radio"][name="filter-haveRead"]');
-let filterHaveReadArr;
-let filterHaveReadRadioValue;
-
-let changedArr;
-
 
 const myLibrary = JSON.parse(localStorage.getItem('books')) || [];
 
@@ -68,7 +62,7 @@ function render () {
       const isDeleteBtn = event.target.className.includes('delete-btn');
       // 判斷對應的按鈕送任務
       if (isEditBtn) { changeHaveReadStatus(event, null); }
-      if (isDeleteBtn) { deleteBook (event, null); }
+      if (isDeleteBtn) { deleteBook(event, null); }
     });
   }
   BookCounter();
@@ -87,54 +81,44 @@ function Book (title, author, addDate, pages, haveRead) {
 }
 // 以 constructor 的結構新增資料到主要 Array
 function addBookToLibrary () {
+  // 有接受表單資料記得用 str.trim() 去掉頭尾空白
   const bookTitleValue = bookTitle.value.trim();
   const bookAuthorValue = bookAuthor.value.trim();
   const bookPagesValue = bookPages.value.trim();
   const bookAddDateValue = bookAddDate.value.trim();
   const bookHaveReadValue = bookHaveRead.value.trim();
   const addDate = {year:bookAddDateValue.slice(0, 4), month:bookAddDateValue.slice(5, 7)};
-  console.log(bookTitleValue, bookAuthorValue, bookPagesValue, bookAddDateValue, bookHaveReadValue);
   // 通過 validation 才會新增資料
   if (formValidation(bookTitleValue, bookAuthorValue, bookPagesValue, bookAddDateValue, bookHaveReadValue)) {
-    console.log('All Ok');
     const book = new Book(bookTitleValue, bookAuthorValue, addDate, bookPagesValue, bookHaveReadValue);
-    console.log(book);
     // 把值取出來
     const {title, author, pages, haveRead} = book;
     // 再用{}把全部包起來
     myLibrary.push({title, author, addDate, pages, haveRead});
-    console.log(myLibrary);
     // 新增資料到 localStorage
     localStorage.setItem('books', JSON.stringify(myLibrary));
+    // 把因為 Validation 新增的 class 移除 => 下次能有一張空白的 form
     removeFormValidationClasses();
     addForm.reset();
     render();
   }
-  // console.log(typeof(bookAddDate));
-  // console.log(bookAddDate.slice(0, 4), bookAddDate.slice(5, 7));
-  // console.log(addDate);
-
-  // const book = new Book(bookTitle, bookAuthor, addDate, bookPages, bookHaveRead);
 }
 function changeHaveReadStatus (event, value) {
-  // console.log(event.target);
-  // const isEditBtn = event.target.className.includes('edit-btn');
-  // console.log(isEditBtn);
-  if (value) {
-    console.log(myLibrary.indexOf(value));
-  }
-
-  // 冒泡找到實際綁定事件的元素
+  // 冒泡找到實際綁定事件的元素（也就是 class: card）
   const ele = event.currentTarget;
   const bookId = ele.dataset.index;
-  console.log(bookId);
-  const foundArr = myLibrary[bookId];
+  // 藉由第二個參數判定是否為篩選狀態
   // 篩選刪掉更改的東西
   if (value) {
+    // data-attribute = myLibrary 的 indexNum
+    // 再以 myLibrary[data-attribute] 為基礎找該值在篩選出的陣列的 index 為何
+    // => 讓電腦知道這個已不符合當前的篩選，不用再 render 出來
+    const foundArr = myLibrary[bookId];
     const index = value.indexOf(foundArr);
     value.splice(index, 1);
     filterRender(value);
   }
+  // 更新 myLibrary 的資料
   if (myLibrary[bookId].haveRead === '讀了😃') {
     myLibrary[bookId].haveRead = '還沒讀😢';
   } else {
@@ -146,114 +130,26 @@ function changeHaveReadStatus (event, value) {
   if (!value) {
     render();
   }
-  // // console.log(bookId);
-  // // // if (isEditBtn) {
-
-  //   myLibrary.forEach(arr => {
-  //     let foundArr;
-  //     console.log(value);
-  //     // 一開始建立的資料是 number
-  //     if (arr.id === parseInt(bookId)) {
-  //       foundArr = arr;
-  //       if (arr.haveRead === '讀了😃') {
-  //         arr.haveRead = '還沒讀😢';
-  //       } else {
-  //         arr.haveRead = '讀了😃';
-  //       }
-  //       if (value) {        
-  //         const deletedIndexNum = value.indexOf(foundArr);
-  //         value.splice(deletedIndexNum, 1);
-  //         console.log(value);
-  //         return filterRender(value);
-  //       }
-  //     }
-  //   });
-  //   // if (myLibrary[indexNum].haveRead === '讀了😃') {
-  //   //   myLibrary[indexNum].haveRead = '還沒讀😢';
-  //   // } else {
-  //   //   myLibrary[indexNum].haveRead = '讀了😃';
-  //   // }
-  // // }
-  // // 更改 localStorage 中的資料
-  // localStorage.setItem('books', JSON.stringify(myLibrary));
-  // render();
-  // // console.log(event.target);
-  // // console.log(this.dataset.index);
-  // // if (value) {
-  // //   // 只丟符合的資料
-  // //   const sortedArr = value.filter(arr => arr.haveRead === filterHaveReadRadioValue);
-  // //   filterRender(sortedArr);
-  // // } else {
-  // //   render();
-  // // }
 } 
 function deleteBook (event, value) {
-  // const isDeleteBtn = event.target.className.includes('delete-btn');
-  // console.log(isDeleteBtn);
-  // const indexNum = this.dataset.index;
-
   // 冒泡找到實際綁定事件的元素
   const ele = event.currentTarget;
   const bookId = ele.dataset.index;
-  console.log(bookId);
   if (value) {
-    console.log(value);
     const indexNum = value.indexOf(myLibrary[bookId]);
-    console.log(indexNum);
     // 篩選頁面是靠 value 的陣列渲染，所以要先刪掉渲染的
     value.splice(indexNum, 1);
-    console.log(value);
     // 重新 render 以前要刪掉主 arr => 避免渲染的 data-index 對不上
     myLibrary.splice(bookId, 1);
     filterRender(value);
   }
   BookCounter();
-  console.log('更新myLibrary');
-  // const deletedArrProperty = 
-  // myLibrary.splice(bookId, 1);
   if (!value) {
     myLibrary.splice(bookId, 1);
     render();
   }
   // 更改 localStorage 中的資料
   localStorage.setItem('books', JSON.stringify(myLibrary));
-  console.log(myLibrary);
-  // console.log(indexNum);
-  // if (isDeleteBtn) {
-  // myLibrary.forEach(arr => {
-  //   console.log('沒跑？');
-  //   if (arr.id === parseInt(bookId)) {
-  //     const indexNum = myLibrary.indexOf(arr);
-  //     console.log(indexNum);
-  //     myLibrary.splice(indexNum, 1);
-  //     console.log(myLibrary);
-  //     if (value) {
-  //       value.splice(value.indexOf(arr), 1);
-  //       console.log(value);
-  //       return filterRender(value);
-  //     }
-  //   }
-  // });
-    // myLibrary.splice(indexNum, 1);
-  // }
-  // render();
-  // if (value) {
-  //   console.log(bookId);
-  //   // const sortedArr = value.filter(arr => arr.haveRead === filterHaveReadRadioValue);
-  //   // console.log(sortedArr);
-  //   value.forEach(arr => {
-  //     if (arr.id === parseInt(bookId)) {
-  //       console.log(arr);
-  //       const indexNum = value.indexOf(arr);
-  //       console.log(indexNum);
-  //       value.splice(indexNum, 1);
-  //     }
-  //   });
-  //   console.log(value);
-  //   filterRender(value);
-  // } else {
-  //   render();
-  // }
 }
 function formValidation (bookTitleValue, bookAuthorValue, bookPagesValue, bookAddDateValue, bookHaveReadValue) {
   addForm.classList.add('has-validation');
@@ -337,9 +233,6 @@ function setInvalidFeedback (input, errorMessage) {
 function isBookAlreadyExisted (bookName) {
   let isExisted = false;
   myLibrary.forEach(bookProperty => {
-    console.log(bookProperty);
-    console.log(bookName);
-    console.log(typeof(bookName));
     if (bookProperty.title === bookName) {
       setInvalidFeedback(bookTitle, `館內已有 ${bookName} 了`);
       isExisted = true;
@@ -348,45 +241,24 @@ function isBookAlreadyExisted (bookName) {
   return isExisted;
 }
 function fillterByHaveReadOrNot () {
-  // const isTargetIncludeInputEle = event.target.nodeName.includes('INPUT');
-  // if (isTargetIncludeInputEle) {
-  //   console.log(event.target.value);
-  // }
   const filterValue = this.value;
-  console.log(filterValue);
   // 假如選擇「全部」就推全部的資料
   if (filterValue === 'all') {
     return render();
   }
-  filterHaveReadRadioValue = filterValue;
+  // 篩出符合條件的書本
   const filter = myLibrary.filter(value => value.haveRead === filterValue);
-  filterHaveReadArr = filter;
-  console.log(filter);
   filterRender(filter);
 }
 function filterRender (filterArrByReadRadioBtnValue) {
-  console.log(filterArrByReadRadioBtnValue);
-  // 用篩出來的 property 從主要 arr 找 index
-  function takePrimaryArrIndexNumHandler (arr) {
-    return arr.map(function (n) {
-      return myLibrary.indexOf(n);
-    });
-  }
-
-  const primaryArrIndexNum = takePrimaryArrIndexNumHandler(filterArrByReadRadioBtnValue);
-  console.log(primaryArrIndexNum);
-
   const booksContainerDiv = document.querySelector('.books-container');
   const cardDivs = document.getElementsByClassName('card');
   let str = '';
-  console.log(filterArrByReadRadioBtnValue);
   filterArrByReadRadioBtnValue.forEach((value) => {
-    console.log(value);
     // 確保重新渲染的頁面 data-index = 主 arr 的 index
-    // 如果修改 / 刪除也會更新主 arr
+    // => 為了資料修改後還可以修改主要 arr 的資料
     // 但是渲染是獨立篩出來的 arr
     const indexNum = myLibrary.indexOf(value);
-    console.log(indexNum);
     if (value.haveRead === '讀了😃') {
       str += `
         <div class="card has-read" data-index="${indexNum}">
@@ -419,22 +291,21 @@ function filterRender (filterArrByReadRadioBtnValue) {
   });
   booksContainerDiv.innerHTML = str;
   for (let card of cardDivs) {
-    // card.addEventListener('click', changeHaveReadStatus);
-    // card.addEventListener('click', deleteBook);
     card.addEventListener('click', (event) => {
       const isEditBtn = event.target.className.includes('edit-btn');
       const isDeleteBtn = event.target.className.includes('delete-btn');
-      console.log(filterArrByReadRadioBtnValue);
       if (isEditBtn) {
+        // 改變狀態的書本監聽事件新增第二個參數
+        // => 為什麼要傳入篩選出來的陣列？
+        // => 因為希望讓使用者在已經篩出資料的同時可以直接修改資料，所以開兩個不同的 render
+        // => 篩選 => 更改狀態 => 還是 render 符合篩選的資料
         changeHaveReadStatus(event, filterArrByReadRadioBtnValue);
-        // changeHaveReadStatus(event, filterHaveReadArr);
       }
       if (isDeleteBtn) {
         deleteBook(event, filterArrByReadRadioBtnValue);
       }
     })
   }
-  console.log('開始重新 render');
 }
 function BookCounter () {
   const counterHasReadBooksNum = document.querySelector('#counter-has-read-books-num');
@@ -463,6 +334,7 @@ addForm.addEventListener('submit', (event) => {
 openModalBtn.addEventListener('click', openPopupAddForm);
 closeModalBtn.addEventListener('click', closePopupAddForm);
 overlay.addEventListener('click', closePopupAddForm);
+// 用 radio btn 當作篩選的按鈕 => 綁定事件
 for (radioBtn of filterHaveReadRadioBtns) {
   radioBtn.addEventListener('change', fillterByHaveReadOrNot);
 }
